@@ -1,0 +1,13 @@
+@extends('layouts.frontend.master')
+@section('meta_title')
+    @lang('frontend.dream_interpretation')
+@endsection
+@section('keyword')
+    @lang('frontend.dream_interpretation')
+@endsection
+@section('description')
+    @lang('frontend.dream_interpretation')
+@endsection
+@section('content')
+    @include('frontend.sections.dreams')
+@endsection

@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /backend
+Disallow: /login
+Allow: /
+Sitemap: {{ URL::to('/sitemap.xml') }}

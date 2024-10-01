@@ -19,18 +19,21 @@
 
                         <a href="{{route('dreams.create')}}" class="btn btn-primary btn-sm">+ Add dream</a>
 
-                        {{--                        <div class="card-tools">--}}
-                        {{--                            <div class="input-group input-group-sm" style="width: 150px;">--}}
-                        {{--                                <input type="text" name="table_search" class="form-control float-right"--}}
-                        {{--                                       placeholder="Search">--}}
+                            <div class="card-tools">
+                                <form action="{{route('backend.dream.search')}}" method="GET">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="search" class="form-control float-right"
+                                           placeholder="Search">
 
-                        {{--                                <div class="input-group-append">--}}
-                        {{--                                    <button type="submit" class="btn btn-default">--}}
-                        {{--                                        <i class="fas fa-search"></i>--}}
-                        {{--                                    </button>--}}
-                        {{--                                </div>--}}
-                        {{--                            </div>--}}
-                        {{--                        </div>--}}
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
@@ -48,17 +51,21 @@
                                 <tr>
                                     <td>
                                         @if($dream->image)
-                                            <img src="{{asset('uploads/dreams/'.$dream->image)}}" alt="{{$dream->name}}" width="100"
+                                            <img src="{{asset('uploads/dreams/'.$dream->image)}}" alt="{{$dream->name}}"
+                                                 width="100"
                                                  height="100">
                                         @endif
                                     </td>
                                     <td>{{$dream->name}}</td>
-                                    <td ><span class="{{($dream->status==1) ? 'badge-success' : 'badge-danger'}} p-1 rounded-sm">{{($dream->status==1) ? 'Active' : 'Passive'}}</span></td>
+                                    <td><span
+                                            class="{{($dream->status==1) ? 'badge-success' : 'badge-danger'}} p-1 rounded-sm">{{($dream->status==1) ? 'Active' : 'Passive'}}</span>
+                                    </td>
                                     <td>
                                         <div class="d-flex">
                                             <a href="{{route('dreams.edit',['dream' => $dream->id])}}"
                                                class="btn btn-warning btn-sm mr-3">Edit</a>
-                                            <form action="{{ route('dreams.destroy',['dream' => $dream->id]) }}" method="Post"
+                                            <form action="{{ route('dreams.destroy',['dream' => $dream->id]) }}"
+                                                  method="Post"
                                                   onsubmit="return confirm('Silmək istədiyinizə əminsiniz?');">
                                                 @method('DELETE')
                                                 @csrf

@@ -51,6 +51,7 @@ Route::group(['prefix' => 'backend', 'middleware' => 'auth'], function () {
     Route::resource('settings', SettingController::class);
     Route::resource('languages', LanguageController::class);
 
+    Route::get( 'search', [DreamController::class, 'search'])->name('backend.dream.search');
 });
 
 // ---------------------------------------------------------------------------------------------------------------------------

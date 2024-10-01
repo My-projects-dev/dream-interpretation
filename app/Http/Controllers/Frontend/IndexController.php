@@ -3,25 +3,21 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Frontend\SearchRequest;
+use App\Http\Requests\SearchRequest;
 use App\Models\Dream;
-use App\Models\Language;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller
 {
     public function index($language = 'en')
     {
-        $dreams = Dream::query()->active()->latest()->paginate(1);
+        $dreams = Dream::query()->active()->latest()->paginate(9);
 
         language_counter($language);
 
         return view('frontend.index', compact('dreams'));
     }
 
-    public function search(Request $request)
+    public function search(SearchRequest $request)
     {
         $name = $request->search;
         $tokens = explode(' ', $name);

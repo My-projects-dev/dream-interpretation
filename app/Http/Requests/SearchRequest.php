@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Frontend;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,10 +22,21 @@ class SearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => 'required|string|max:255',
+            'search' => 'required|string|max:444',
         ];
     }
 
+    /**
+     * Sanitize input before validation.
+     */
+    protected function prepareForValidation()
+    {
+        $this->sanitize();
+    }
+
+    /**
+     * Sanitize input fields.
+     */
     public function sanitize()
     {
         $input = $this->all();

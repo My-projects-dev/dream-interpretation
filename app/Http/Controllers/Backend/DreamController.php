@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\DreamRequest;
+use App\Http\Requests\SearchRequest;
 use App\Models\Dream;
 use App\Models\Language;
 use Illuminate\Http\Request;
@@ -19,9 +20,10 @@ class DreamController extends Controller
      */
     public function index()
     {
-        $dreams = Dream::query()->orderBy('id', 'DESC')->paginate(10);
+        $dreams = Dream::query()->orderBy('id', 'DESC')->paginate(9);
         return view('backend.pages.dreams.index', compact('dreams'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -125,4 +127,29 @@ class DreamController extends Controller
     private function cacheForget(){
         Cache::forget('dreams');
     }
+
+    public function search(SearchRequest $request)
+    {
+        $name = $request->search;
+        $tokens = explode(' ', $name);
+        $columns = ['name', 'keywords', 'title', 'text'];
+
+        $dreams = Dream::query()
+            ->active()
+            ->latest()
+            ->whereHas('translations', function ($query) use ($columns, $tokens) {
+                $query->where(function ($query) use ($tokens, $columns) {
+                    foreach ($columns as $column) {
+                        foreach ($tokens as $token) {
+                            $query->orWhereRaw("SOUNDEX($column) = SOUNDEX(?)", [$token])
+                                ->orWhere($column, 'LIKE', '%' . $token . '%');
+                        }
+                    }
+                });
+            })
+            ->paginate(9);
+
+        return view('backend.pages.dreams.index', compact('dreams'));
+    }
+
 }

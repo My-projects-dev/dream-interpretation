@@ -69,7 +69,7 @@ Route::group(['middleware' => 'language', 'prefix' => '{language?}'], function (
         ->prefix('search')
         ->as('search.')
         ->group(function () {
-            Route::match(['get', 'post'],'/', 'search')->name('dream');
+            Route::get('/', 'search')->name('dream');
         });
 
     Route::controller(DreamFront::class)

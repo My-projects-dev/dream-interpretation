@@ -128,9 +128,14 @@ class DreamController extends Controller
         Cache::forget('dreams');
     }
 
-    public function search(SearchRequest $request)
+    public function search(Request $request)
     {
-        $name = $request->search;
+        $name = strip_tags($request->search);
+
+        if (empty(trim($name))) {
+            return redirect()->route('dreams.index');
+        }
+
         $tokens = explode(' ', $name);
         $columns = ['name', 'keywords', 'title', 'text'];
 

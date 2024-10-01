@@ -8,7 +8,6 @@
         <li class="nav-item d-none d-sm-inline-block">
             <div class="d-flex justify-content-between">
                 <a href="{{route('dashboard')}}" class="nav-link">Home</a>
-
             </div>
         </li>
     </ul>

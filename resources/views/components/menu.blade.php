@@ -18,8 +18,7 @@
     </ul>
     <i class="uil uil-search search-icon" id="searchIcon"></i>
     <div class="search-box">
-        <form action="{{route('search.dream',['language'=>app()->getLocale()])}}" method="POST">
-            @csrf
+        <form action="{{route('search.dream',['language'=>app()->getLocale()])}}" method="GET">
             <button type="submit"> <i class="uil uil-search search-icon"></i></button>
             <input type="text" placeholder="@lang('frontend.placeholders.search')..." name="search" id="searchInput"/>
         </form>

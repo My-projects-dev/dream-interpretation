@@ -22,7 +22,7 @@ class SearchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'search' => 'required|string|max:444',
+            'search' => 'string|max:444',
         ];
     }
 

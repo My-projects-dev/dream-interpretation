@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchRequest;
+use Illuminate\Http\Request;
 use App\Models\Dream;
 
 class IndexController extends Controller
@@ -17,9 +18,14 @@ class IndexController extends Controller
         return view('frontend.index', compact('dreams'));
     }
 
-    public function search(SearchRequest $request)
+    public function search(Request $request)
     {
-        $name = $request->search;
+        $name = strip_tags($request->search);
+
+        if (empty(trim($name))) {
+            return redirect()->route('home');
+        }
+
         $tokens = explode(' ', $name);
         $columns = ['name', 'keywords', 'title', 'text'];
 
